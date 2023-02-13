@@ -119,5 +119,26 @@ router.post("/:bookId/edit", async (req, res, next) => {
 
 })
 
+// POST "/book/:bookId/delete" => borrar un libro por su id
+router.post("/:bookId/delete", async (req, res, next) => {
+
+  // recibiremos un id
+  console.log(req.params.bookId)
+  const { bookId } = req.params
+
+  try {
+    
+    // usamos un metodo para borrar un documento por su id
+    const response = await Book.findByIdAndDelete(bookId)
+
+    res.redirect("/book")
+
+
+  } catch(err) {
+    next(err)
+  }
+
+})
+
 
 module.exports = router;

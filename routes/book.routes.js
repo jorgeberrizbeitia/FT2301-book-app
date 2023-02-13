@@ -49,4 +49,39 @@ router.get("/:bookId/details", async (req, res, next) => {
   }
 })
 
+// GET "/book/create" => renderizar un formulario para que el usuario pueda crear un libro en la DB
+router.get("/create", (req, res, next) => {
+
+  res.render("book/create-form.hbs")
+
+})
+
+
+router.post("/create-new-book", async (req, res, next) => {
+
+  console.log(req.body)
+
+  // cojer la info
+  try {
+    
+    // crear el elemento en la DB
+    const response = await Book.create({
+      title: req.body.title,
+      description: req.body.description,
+      author: req.body.author
+    })
+
+    // decir al user todo ok
+    res.render("book/create-form.hbs") // ahora lo cambiamos
+
+  } catch(err) {
+    next(err)
+  }
+
+
+
+
+})
+
+
 module.exports = router;

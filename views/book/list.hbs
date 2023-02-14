@@ -2,13 +2,18 @@
 
   <h3>Lista de Libros</h3>
 
-  {{#each allBooks}}
+  <ul class="list-group gap-3">
 
-    {{!-- <p>{{this.title}}</p> --}}
-    <p>
-      <a href="/book/{{this._id}}/details">{{this.title}}</a>
-    </p>
+    {{#each allBooks}}
 
-  {{/each}}
+      {{!-- <p>{{this.title}}</p> --}}
+
+        <a class="list-group-item list-group-item-action" href="/book/{{this._id}}/details">{{this.title}}</a>
+
+
+    {{/each}}
+
+  </ul>
+
 
 </div>

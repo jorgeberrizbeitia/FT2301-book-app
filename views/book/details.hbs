@@ -1,35 +1,42 @@
-<div>
+<div class="card gap-5">
 
-  <h3>Aqui los detalles de un libro</h3>
+  <h3 class="card-title">Aqui los detalles de un libro</h3>
 
-  {{!-- {{this.bookDetails}} --}}
-  <div>
-    <h5>{{bookDetails.title}}</h5>
-    <p>Descripción: {{bookDetails.description}}</p>
+  {{#if bookDetails.image}}
+
+    <img class="card-img-top" src="{{bookDetails.image}}" alt="cover" width="300px">
+
+  {{/if }}
+
+  <div class="card-body">
+    
+
+    {{!-- {{this.bookDetails}} --}}
+    <h5 class="card-title">{{bookDetails.title}}</h5>
+    <p class="card-text">Descripción: {{bookDetails.description}}</p>
     {{!-- <p>Autor: {{bookDetails.author}}</p> --}}
     {{!-- <p>Author: {{bookDetails.author.name}} de {{bookDetails.author.country}} nacido en {{bookDetails.author.yearBorn}}</p> --}}
 
     {{#each bookDetails.author}}
 
-      <p>Author: {{this.name}} de {{this.country}} nacido en {{this.yearBorn}}</p>
+      <p class="card-text">Author: {{this.name}} de {{this.country}} nacido en {{this.yearBorn}}</p>
 
     {{/each}}
 
-    {{#if bookDetails.image}}
+    <div class="d-flex justify-content-center">
 
-      <img src="{{bookDetails.image}}" alt="cover" width="300px">
+      <a href="/book/{{bookDetails._id}}/edit">
+        <button class="btn btn-info update-btn">Ir a Actualizar</button>
+      </a>
+      
+      <form action="/book/{{bookDetails._id}}/delete" method="post">
+        <button class="btn btn-danger">Borrar</button>
+      </form>
 
-    {{/if }}
+    </div>
 
 
   </div>
 
-  <a href="/book/{{bookDetails._id}}/edit">
-    <button>Ir a Actualizar</button>
-  </a>
-  
-  <form action="/book/{{bookDetails._id}}/delete" method="post">
-    <button>Borrar</button>
-  </form>
 
 </div>

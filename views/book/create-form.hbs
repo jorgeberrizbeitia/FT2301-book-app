@@ -5,11 +5,11 @@
   {{!-- DEBEMOS DECIRLE AL FORM QUE PUEDE ENVIAR ARCHIVOS enctype="multipart/form-data" --}}
   <form action="/book/create" method="post" enctype="multipart/form-data">
 
-    <label for="title">Titulo</label>
-    <input type="text" name="title">
+    <label class="form-label" for="title">Titulo</label>
+    <input class="form-control" type="text" name="title">
     <br>
-    <label for="description">Descripción</label>
-    <input type="text" name="description">
+    <label class="form-label" for="description">Descripción</label>
+    <input class="form-control" type="text" name="description">
     <br>
     {{!-- <input type="text" name="author"> --}}
 
@@ -21,8 +21,8 @@
       <option value="opcion-3">opcion 3</option>
     </select> --}}
 
-    <label for="author">Autor</label>
-    <select name="author" multiple="true">
+    <label class="form-label" for="author">Autor</label>
+    <select class="form-select" name="author" multiple="true">
 
       {{#each allAuthors}}
 
@@ -34,11 +34,11 @@
 
     <br>
 
-    <label for="image">Imagen</label>
-    <input type="file" name="image">
+    <label class="form-label" for="image">Imagen</label>
+    <input class="form-control" type="file" name="image">
     <br>
 
-    <button>Agregar</button>
+    <button class="btn btn-success">Agregar</button>
 
   </form>
 

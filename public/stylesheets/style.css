@@ -10,3 +10,27 @@ a {
 h1 {
   color: 15px;
 }
+
+
+/* Imaginemos que estos son los estilos de bootstrap */
+/* .btn {
+  .....
+}
+
+.btn-info {
+  color: white;
+  background-color: aquamarine;
+} */
+
+
+
+
+
+
+.update-btn {
+  background-color: blueviolet;
+}
+
+.update-btn:hover {
+  background-color: coral;
+}

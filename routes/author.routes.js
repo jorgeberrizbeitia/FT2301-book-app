@@ -37,6 +37,22 @@ router.post("/create", async (req, res, next) => {
 })
 
 // Read
+// GET "/author" => listar todos los autores de la DB
+router.get("/", async (req, res, next) => {
+
+  try {
+    
+    const response = await Author.find()
+    res.render("author/list.hbs", {
+      allAuthors: response
+    })
+
+  } catch (error) {
+    next(error)
+  }
+
+
+})
 
 
 // Edit

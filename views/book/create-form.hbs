@@ -10,8 +10,27 @@
     <label for="description">Descripción</label>
     <input type="text" name="description">
     <br>
+    {{!-- <input type="text" name="author"> --}}
+
+    {{!-- {{allAuthors}} --}}
+
+    {{!-- <select name="nombrePropiedad" id="">
+      <option value="opcion-1">opcion 1</option>
+      <option value="opcion-2">opcion 2</option>
+      <option value="opcion-3">opcion 3</option>
+    </select> --}}
+
     <label for="author">Autor</label>
-    <input type="text" name="author">
+    <select name="author">
+
+      {{#each allAuthors}}
+
+        <option value="{{this._id}}">{{this.name}}</option>
+
+      {{/each}}
+
+    </select>
+
     <br>
     <button>Agregar</button>
 

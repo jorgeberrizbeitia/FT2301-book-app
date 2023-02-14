@@ -16,7 +16,7 @@ router.get("/create", (req, res, next) => {
 // POST "/author/create" => recibe data de formulario y crea el autor en la DB
 router.post("/create", async (req, res, next) => {
 
-  console.log(req.body)
+  // console.log(req.body)
 
   const { name, country, yearBorn } = req.body
 

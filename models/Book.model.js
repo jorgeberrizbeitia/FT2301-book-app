@@ -15,6 +15,7 @@ const bookSchema = new mongoose.Schema({
       ref: "Author"// El nombre del MODELO de la collección donde deberia buscar esta relación
     }
   ],
+  image: String // el url de cloudinary
 });
 
 // creamos el modelo

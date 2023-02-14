@@ -4,6 +4,8 @@ const router = express.Router();
 const Book = require("../models/Book.model.js");
 const Author = require("../models/Author.model.js")
 
+const uploader = require("../middlewares/cloudinary.js") // este es el middleware que enviar la imagen a cloudinary y nos da el URL
+
 // nuestras rutas
 // GET "/book" => renderizar una vista con los titulos de los libros
 router.get("/", (req, res, next) => {
@@ -12,7 +14,7 @@ router.get("/", (req, res, next) => {
     // .populate("author") // ejemplo de hacer populate en array de data
     // .select("title")
     .then((response) => {
-      console.log(response);
+      // console.log(response);
 
       res.render("book/list.hbs", {
         allBooks: response,
@@ -25,7 +27,7 @@ router.get("/", (req, res, next) => {
 
 // GET "/book/:bookId/details" => renderizar los detalles de un libro por su id
 router.get("/:bookId/details", async (req, res, next) => {
-  console.log(req.params);
+  // console.log(req.params);
 
   try {
     const { bookId } = req.params;
@@ -40,7 +42,7 @@ router.get("/:bookId/details", async (req, res, next) => {
     const bookDetails = await Book.findById(bookId).populate("author") // .todo en la misma llamada
     // const bookDetails = await Book.findById(bookId).populate("author", "name") // ejemplo de como seleccionar una propiedad especifica con el populate y no traer toda la data
 
-    console.log(bookDetails);
+    // console.log(bookDetails);
     // console.log(bookDetails.author)
     // const authorDetails = await Author.findById(bookDetails.author)
     // console.log(authorDetails)
@@ -78,8 +80,18 @@ router.get("/create", async (req, res, next) => {
 });
 
 // POST "/book/create" => crear un libro en la DB y redireccionar al usuario
-router.post("/create", async (req, res, next) => {
+//          esto ejecuta el middleware justo antes de entrar en la ruta
+//                            |
+router.post("/create", uploader.single("image"), async (req, res, next) => {
   console.log(req.body);
+
+  // pasar por el proceso de cloudinary para enviar la imagen a cloudinary y recibir el URL
+  // console.log(req.file.path) // el url de cloudinary
+
+  let image;
+  if (req.file !== undefined) {
+    image = req.file.path
+  }
 
   // cojer la info
   try {
@@ -88,6 +100,7 @@ router.post("/create", async (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       author: req.body.author,
+      image: image // el url de cloudinary
     });
 
     // decir al user todo ok
@@ -110,7 +123,7 @@ router.get("/:bookId/edit", async (req, res, next) => {
     const { bookId } = req.params;
 
     const bookToUpdate = await Book.findById(bookId)
-    console.log(bookToUpdate)
+    // console.log(bookToUpdate)
   
     res.render("book/edit-form.hbs", {
       bookToUpdate: bookToUpdate
@@ -123,8 +136,8 @@ router.get("/:bookId/edit", async (req, res, next) => {
 // POST "/book/:bookId/edit" => editar el libro con los valores del campo
 router.post("/:bookId/edit", async (req, res, next) => {
 
-  console.log("intentando actualizar el libro", req.body)
-  console.log(req.params.bookId)
+  // console.log("intentando actualizar el libro", req.body)
+  // console.log(req.params.bookId)
 
 
   try {
@@ -150,7 +163,7 @@ router.post("/:bookId/edit", async (req, res, next) => {
 router.post("/:bookId/delete", async (req, res, next) => {
 
   // recibiremos un id
-  console.log(req.params.bookId)
+  // console.log(req.params.bookId)
   const { bookId } = req.params
 
   try {

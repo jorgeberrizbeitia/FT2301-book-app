@@ -2,7 +2,8 @@
 
   <h3>Formulario para crear libro</h3>
 
-  <form action="/book/create" method="post">
+  {{!-- DEBEMOS DECIRLE AL FORM QUE PUEDE ENVIAR ARCHIVOS enctype="multipart/form-data" --}}
+  <form action="/book/create" method="post" enctype="multipart/form-data">
 
     <label for="title">Titulo</label>
     <input type="text" name="title">
@@ -32,6 +33,11 @@
     </select>
 
     <br>
+
+    <label for="image">Imagen</label>
+    <input type="file" name="image">
+    <br>
+
     <button>Agregar</button>
 
   </form>

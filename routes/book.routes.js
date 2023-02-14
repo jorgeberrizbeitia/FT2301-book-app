@@ -129,7 +129,8 @@ router.post("/:bookId/delete", async (req, res, next) => {
   try {
     
     // usamos un metodo para borrar un documento por su id
-    const response = await Book.findByIdAndDelete(bookId)
+    // const response = await Book.findByIdAndDelete(bookId)
+    await Book.findByIdAndDelete(bookId)
 
     res.redirect("/book")
 

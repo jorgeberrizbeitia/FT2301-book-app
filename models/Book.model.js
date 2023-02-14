@@ -4,10 +4,17 @@ const mongoose = require("mongoose");
 const bookSchema = new mongoose.Schema({
   title: String,
   description: String,
-  author: {
-    type: mongoose.Schema.Types.ObjectId, // el valor de esta propiedad será un id de mongo
-    ref: "Author"// El nombre del MODELO de la collección donde deberia buscar esta relación
-  },
+  // author: {
+  //   type: mongoose.Schema.Types.ObjectId, // el valor de esta propiedad será un id de mongo
+  //   ref: "Author"// El nombre del MODELO de la collección donde deberia buscar esta relación
+  // },
+  // AHORA ESTO VA A SER UN ARRAY DE AUTORES
+  author: [
+    {
+      type: mongoose.Schema.Types.ObjectId, // el valor de esta propiedad será un id de mongo
+      ref: "Author"// El nombre del MODELO de la collección donde deberia buscar esta relación
+    }
+  ],
 });
 
 // creamos el modelo

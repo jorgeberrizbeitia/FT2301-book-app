@@ -8,7 +8,8 @@ const Author = require("../models/Author.model.js")
 // GET "/book" => renderizar una vista con los titulos de los libros
 router.get("/", (req, res, next) => {
   Book.find()
-    .select({ title: 1 })
+    .select({ title: 1, author:1 })
+    // .populate("author") // ejemplo de hacer populate en array de data
     // .select("title")
     .then((response) => {
       console.log(response);
@@ -31,8 +32,18 @@ router.get("/:bookId/details", async (req, res, next) => {
     // const bookId = req.params.bookId
 
     // Book.findById(bookId)
-    const bookDetails = await Book.findById(bookId);
+    // const bookDetails = await Book.findById(bookId);
+
+    // .populate() es un metodo de llamadas a BD y nos da todos los detalles de una propiedad que tenga una relación
+    // .populate("nombre de la propiedad")
+
+    const bookDetails = await Book.findById(bookId).populate("author") // .todo en la misma llamada
+    // const bookDetails = await Book.findById(bookId).populate("author", "name") // ejemplo de como seleccionar una propiedad especifica con el populate y no traer toda la data
+
     console.log(bookDetails);
+    // console.log(bookDetails.author)
+    // const authorDetails = await Author.findById(bookDetails.author)
+    // console.log(authorDetails)
 
     res.render("book/details.hbs", {
       bookDetails: bookDetails,
@@ -55,7 +66,7 @@ router.get("/create", async (req, res, next) => {
     
     // ahora esta ruta busca todos los autores de la BD y los pasa al cliente
     const response = await Author.find().select("name") // select como buena practica. Solo necesitamos el nombre y el id
-    
+
     res.render("book/create-form.hbs", {
       allAuthors: response
     });

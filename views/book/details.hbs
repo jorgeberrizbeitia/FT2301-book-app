@@ -6,7 +6,16 @@
   <div>
     <h5>{{bookDetails.title}}</h5>
     <p>Descripción: {{bookDetails.description}}</p>
-    <p>Autor: {{bookDetails.author}}</p>
+    {{!-- <p>Autor: {{bookDetails.author}}</p> --}}
+    {{!-- <p>Author: {{bookDetails.author.name}} de {{bookDetails.author.country}} nacido en {{bookDetails.author.yearBorn}}</p> --}}
+
+    {{#each bookDetails.author}}
+
+      <p>Author: {{this.name}} de {{this.country}} nacido en {{this.yearBorn}}</p>
+
+    {{/each}}
+
+
   </div>
 
   <a href="/book/{{bookDetails._id}}/edit">

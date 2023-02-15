@@ -123,10 +123,33 @@ router.get("/:bookId/edit", async (req, res, next) => {
     const { bookId } = req.params;
 
     const bookToUpdate = await Book.findById(bookId)
-    // console.log(bookToUpdate)
+    console.log(bookToUpdate)
+
+    const allAuthors = await Author.find().select("name")
+    
+    // const cloneAllAuthors = JSON.parse( JSON.stringify(allAuthors) )
+    // const cloneAllAuthors = structuredClone(allAuthors)
+    // const cloneAllAuthors = [...allAuthors] // con clone shallow funciona
+
+
+    allAuthors.forEach((eachAuthor) => {
+      if (bookToUpdate.author.includes(eachAuthor._id) === true) {
+        eachAuthor.isOnBook = true
+      } else {
+        eachAuthor.isOnBook = false
+      }
+    })
+    
+    console.log(allAuthors)
+
+    // object1._id === object2._id // false
+    // object1._id == object2._id // true
+    // JSON.stringify(object1._id) === JSON.stringify(object2._id) // true
+
   
     res.render("book/edit-form.hbs", {
-      bookToUpdate: bookToUpdate
+      bookToUpdate: bookToUpdate,
+      allAuthors: allAuthors
     })
   } catch(err) {
     next(err)
